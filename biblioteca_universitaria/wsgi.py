@@ -1,5 +1,5 @@
 """
-WSGI config for tienda_online project.
+WSGI config for biblioteca_universitaria project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tienda_online.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'biblioteca_universitaria.settings')
 
 application = get_wsgi_application()
