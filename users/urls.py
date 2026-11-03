@@ -1,6 +1,9 @@
 from django.urls import path, include
 from rest_framework import routers
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 from users import views
 
@@ -9,7 +12,11 @@ router.register(r'users', views.UserApiViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('auth/me/', views.UserView.as_view()),
-    path('auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/me/', views.UserView.as_view(), name='user_me'),
+    path('auth/register/', views.RegisterUserView.as_view({'post': 'create'}), name='register'),
+    path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/login/', TokenObtainPairView.as_view(), name='token_login'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # Endpoint SOAP (Unidad 3)
+    path('soap/country/', views.soap_country_info, name='soap_country_info'),
 ]

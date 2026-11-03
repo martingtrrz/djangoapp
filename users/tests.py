@@ -51,3 +51,22 @@ class UserApiTests(TestCase):
             'email': 'admin@ut.com', 'password': 'Admin1234!'})
         self.assertEqual(r.status_code, 200)
         self.assertIn('access', r.data)
+
+    def test_register_endpoint(self):
+        r = APIClient().post('/api/v1/auth/register/', {
+            'username': 'nuevo',
+            'email': 'nuevo@ut.com',
+            'password': 'NuevoPassword123!',
+            'carrera': 'Sistemas'
+        })
+        self.assertEqual(r.status_code, 201)
+        self.assertIn('user', r.data)
+        self.assertEqual(r.data['user']['email'], 'nuevo@ut.com')
+        self.assertTrue(User.objects.filter(email='nuevo@ut.com').exists())
+
+    def test_soap_country_info(self):
+        r = self.client.get('/api/v1/soap/country/?code=MX')
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.data['status'], 'success')
+        self.assertEqual(r.data['country_name'], 'Mexico')
+        self.assertEqual(r.data['capital_city'], 'Mexico City')
